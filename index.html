@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>آزمایشگاه منظومه شمسی</title>
+    <!-- 🖼️ favicon: نمایش لوگو در تب مرورگر -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="shortcut icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
     <style>
         :root {
@@ -46,12 +50,14 @@
             transition: opacity 0.6s ease;
         }
         .loading-screen.hidden { opacity: 0; pointer-events: none; }
+        /* لوگو: نسبت عرض به طول ۱ به ۲ — کل تصویر دیده می‌شود */
         .loading-logo {
-            width: 78px; height: 78px;
-            border-radius: 20px;
-            object-fit: cover;
+            width: 92px;
+            height: 184px;
+            object-fit: contain;
+            border-radius: 18px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
-            margin-bottom: -6px;
+            margin-bottom: -8px;
         }
         .spinner {
             width: 46px; height: 46px;
@@ -386,13 +392,15 @@
             border-radius: 14px;
             flex-shrink: 0;
         }
+        /* لوگوی کوچک داخل دایره — کل عکس داخلش جا می‌شود */
         .credit-logo {
-            width: 34px; height: 34px;
+            width: 40px; height: 40px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 5px;
             flex-shrink: 0;
             border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.06);
         }
         .credit-info {
             flex: 1;
@@ -476,6 +484,11 @@
 
             .credit-footer {
                 margin-top: 8px;
+            }
+
+            .loading-logo {
+                width: 78px;
+                height: 156px;
             }
         }
 
@@ -740,10 +753,10 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
-            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍👩‍👧‍👦'],
+            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰ ساله داره می‌چرخه! 🌀'],
+            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍‍👧👦'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
-            neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
+            neptune: ['یک سال نپتون = ۱۶ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
         };
 
         const SIZE_NOTES = {
@@ -753,7 +766,7 @@
             },
             venus: {
                 up:   ['danger',  'زهره غول شده! اثر گلخانه‌ای‌اش تقویت شد و زمین هم داره کباب می‌شه! 🌡️'],
-                down: ['success', 'زهره کوچیک شده! تابش گرمایی‌اش کم شد؛ زمین نفس راحت می‌کشه! 😮‍💨']
+                down: ['success', 'زهره کوچیک شده! تابش گرمایی‌اش کم شد؛ زمین نفس راحت می‌کشه! 😮‍']
             },
             moon: {
                 up:   ['warning', 'ماه بزرگ شده! جزر و مد شدیدتر شد؛ اقیانوس‌ها دارن قلقلک می‌شن! 🌊'],
@@ -776,7 +789,7 @@
                 down: ['fun',     'اورانوس کوچیک شده! دیگه حتی به پهلو هم جذاب نیست! 😴']
             },
             neptune: {
-                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
+                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
                 down: ['fun',     'نپتون آب رفته! بادهاش افتاده به سکوت مطلق! 🤫']
             }
         };
