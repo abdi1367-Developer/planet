@@ -733,19 +733,45 @@
             neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰ کیلومتر بر ساعت' }
         };
 
+        // 🖼️ هر شرایط = زنجیره‌ای از چند منبع؛ اگر اولی لود نشد، بعدی امتحان می‌شود
         const IMAGES = {
-            ice:     'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/61ed7dea5-1270-46af-b132-69de42e56d886366.png',
-            normal:  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=300&fit=crop',
-            drought: 'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/61ed7dea5-1270-46af-b132-69de42e56d887870.png',
-            heat:    'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=300&fit=crop',
-            rain:    'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&h=300&fit=crop',
-            flood:   'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=800&h=300&fit=crop',
-            ocean:   'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=300&fit=crop'
-        };
-
-        const IMG_FALLBACK = {
-            ice:     'https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=800&h=300&fit=crop',
-            drought: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=300&fit=crop'
+            ice: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/72b9a0da4-4361-4fde-85aa-a86d57ee30f67367.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/22b9a0da4-4361-4fde-85aa-a86d57ee30f67833.png',
+                'https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=800&h=300&fit=crop'
+            ],
+            normal: [
+                'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1614730321146-b6fa6a484040?w=800&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&h=300&fit=crop'
+            ],
+            drought: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/32b9a0da4-4361-4fde-85aa-a86d57ee30f61513.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/52b9a0da4-4361-4fde-85aa-a86d57ee30f65790.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/32b9a0da4-4361-4fde-85aa-a86d57ee30f61142.png',
+                'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=300&fit=crop'
+            ],
+            heat: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/52b9a0da4-4361-4fde-85aa-a86d57ee30f64564.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/02b9a0da4-4361-4fde-85aa-a86d57ee30f64226.png',
+                'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=300&fit=crop'
+            ],
+            rain: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/22b9a0da4-4361-4fde-85aa-a86d57ee30f64980.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/72b9a0da4-4361-4fde-85aa-a86d57ee30f61649.png',
+                'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&h=300&fit=crop'
+            ],
+            flood: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/32b9a0da4-4361-4fde-85aa-a86d57ee30f63132.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/12b9a0da4-4361-4fde-85aa-a86d57ee30f66680.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/02b9a0da4-4361-4fde-85aa-a86d57ee30f68155.png',
+                'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=800&h=300&fit=crop'
+            ],
+            ocean: [
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/42b9a0da4-4361-4fde-85aa-a86d57ee30f62572.png',
+                'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/72b9a0da4-4361-4fde-85aa-a86d57ee30f65461.png',
+                'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=300&fit=crop'
+            ]
         };
 
         const CAPTIONS = {
@@ -760,7 +786,7 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
+            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰ ساله داره می‌چرخه! 🌀'],
             saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍‍'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
             neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰ کیلومتر بر ساعت! 💨']
@@ -835,7 +861,6 @@
         let spaceDark = true;
         let tipTimer = null;
 
-        // 📱 وضعیت منوی موبایل + نمای کنارِ فشرده برای نوار بالای منو
         let mobileMenuOpen = false;
         let savedCamPos = null, savedCamTarget = null;
         let camTween = null;
@@ -1332,6 +1357,18 @@
             ).join('');
         }
 
+        // 🖼️ تصویر جایگزین داخلی (بدون اینترنت) برای وقتی همه منابع شکست خوردند
+        const IMG_EMO = { ice:'❄️', heat:'🔥', drought:'🏜️', flood:'🌊', rain:'🌧️', ocean:'🌊', normal:'🌍' };
+        function placeholderURI(key){
+            const emo = IMG_EMO[key] || '🌍';
+            const svg = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='300'>" +
+                "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+                "<stop offset='0' stop-color='#16324f'/><stop offset='1' stop-color='#05070d'/></linearGradient></defs>" +
+                "<rect width='800' height='300' fill='url(#g)'/>" +
+                "<text x='400' y='170' font-size='110' text-anchor='middle'>" + emo + "</text></svg>";
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
         function renderImage() {
             const p = planets[currentId];
             if (!p) return;
@@ -1344,11 +1381,14 @@
             else if (p.water > 60 && p.temp > 15) key = 'ocean';
 
             const img = document.getElementById('report-image');
+            const list = (IMAGES[key] || IMAGES.normal).concat([placeholderURI(key)]);
+            let idx = 0;
             img.onerror = () => {
-                img.onerror = null;
-                if (IMG_FALLBACK[key]) img.src = IMG_FALLBACK[key];
+                idx++;
+                if (idx < list.length) img.src = list[idx];
+                else img.onerror = null;
             };
-            img.src = IMAGES[key];
+            img.src = list[0];
             document.getElementById('image-caption').textContent = CAPTIONS[key];
         }
 
@@ -1381,7 +1421,7 @@
                 ? { name: 'خورشید', desc: 'ستاره منظومه ما • ۹۹.۸٪ جرم کل منظومه' }
                 : CONFIG[id];
             const p = planets[id];
-            const temp = id === 'sun' ? '۵۵۰' : (p ? p.temp : cfg.baseTemp);
+            const temp = id === 'sun' ? '۵۵۰۰' : (p ? p.temp : cfg.baseTemp);
             const size = id === 'sun' ? sunScale.toFixed(2) : (p ? p.scale.toFixed(2) : '1.00');
 
             tip.innerHTML = `
