@@ -439,7 +439,7 @@
             left: 14px;
             z-index: 60;
             justify-content: space-between;
-            pointer-events: none; /* ✅ کلیک از بین دکمه‌ها رد می‌شود */
+            pointer-events: none;
         }
         .mob-btn {
             width: 40px; height: 40px;
@@ -449,7 +449,7 @@
             justify-content: center;
             cursor: pointer;
             color: rgba(255,255,255,0.9);
-            pointer-events: auto; /* ✅ فقط خود دکمه‌ها کلیک‌پذیر */
+            pointer-events: auto;
         }
         .mob-btn svg { display: block; }
 
@@ -474,7 +474,6 @@
                 transform: translateY(105%);
             }
 
-            /* ✅ هر دو سایدپنل در موبایل تمام‌عرض شوند (غلبه بر right/left دسکتاپ) */
             #sidebar-right,
             #sidebar-left {
                 left: 0;
@@ -489,7 +488,6 @@
             .sidebar .habit-card,
             .sidebar .credit-footer { background: rgba(255,255,255,0.04); }
 
-            /* ✅ موبایل + تم روشن: پس‌زمینه منو تیره‌تر می‌شود تا متن سفید خوانا بماند */
             body.light-space .sidebar {
                 background: rgba(12, 12, 20, 0.85);
                 backdrop-filter: blur(14px) saturate(160%);
@@ -732,7 +730,7 @@
             jupiter: { name: 'مشتری', color: '#D4A373', radius: 1.6, orbit: 15, speed: 0.084, baseTemp: -10, baseAtmo: 90, baseWater: 0, desc: 'غول گازی • محافظ زمین در برابر شهاب‌سنگ' },
             saturn:  { name: 'زحل', color: '#EAD6B8', radius: 1.4, orbit: 19.5, speed: 0.034, baseTemp: -20, baseAtmo: 80, baseWater: 0, desc: 'ارباب حلقه‌ها • چگالی کمتر از آب' },
             uranus:  { name: 'اورانوس', color: '#A8DADC', radius: 1.1, orbit: 23.5, speed: 0.012, baseTemp: -30, baseAtmo: 75, baseWater: 10, desc: 'سیاره یخی • به پهلو می‌چرخد' },
-            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰۰ کیلومتر بر ساعت' }
+            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰ کیلومتر بر ساعت' }
         };
 
         const IMAGES = {
@@ -762,13 +760,12 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
-            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍👩‍'],
+            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
+            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍‍'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
-            neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
+            neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰ کیلومتر بر ساعت! 💨']
         };
 
-        // 📈 نکات طنز تغییر اندازه
         const SIZE_NOTES = {
             mercury: {
                 up:   ['warning', 'عطارد تپل شده! مدارش به هم ریخته و به زمین نزدیک‌تر شده! ☿'],
@@ -799,12 +796,11 @@
                 down: ['fun',     'اورانوس کوچیک شده! دیگه حتی به پهلو هم جذاب نیست! 😴']
             },
             neptune: {
-                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
+                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
                 down: ['fun',     'نپتون آب رفته! بادهاش افتاده به سکوت مطلق! 🤫']
             }
         };
 
-        // 🧲 جدول اثر متقابل: [پارامتر سیاره، متغیر زمین، ضریب] — علامت ضریب = جهت اثر واقعی
         const INFLUENCE = {
             mercury: [ ['temp','temp', 0.04], ['atmo','temp',-0.05], ['water','water', 0.02], ['speed','temp', 2.0] ],
             venus:   [ ['temp','temp', 0.35], ['atmo','atmo', 0.08], ['water','temp',-0.10], ['speed','temp', 1.5] ],
@@ -839,8 +835,47 @@
         let spaceDark = true;
         let tipTimer = null;
 
+        // 📱 وضعیت منوی موبایل + نمای کنارِ فشرده برای نوار بالای منو
+        let mobileMenuOpen = false;
+        let savedCamPos = null, savedCamTarget = null;
+        let camTween = null;
+        const MOBILE_VIEW_POS = new THREE.Vector3(0, 6, 140);
+        const MOBILE_VIEW_TARGET = new THREE.Vector3(0, -35, 0);
+
         const CHEV_L = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14 6 8 12 14 18"/></svg>';
         const CHEV_R = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 6 16 12 10 18"/></svg>';
+
+        function isMobile(){ return matchMedia('(max-width: 900px)').matches; }
+
+        function tweenCamera(toPos, toTarget, dur=700){
+            const fromPos = camera.position.clone();
+            const fromTarget = controls.target.clone();
+            const t0 = performance.now();
+            if (camTween) cancelAnimationFrame(camTween);
+            function step(now){
+                const k = Math.min(1,(now-t0)/dur);
+                const e = k<0.5 ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;
+                camera.position.lerpVectors(fromPos,toPos,e);
+                controls.target.lerpVectors(fromTarget,toTarget,e);
+                if(k<1) camTween=requestAnimationFrame(step); else camTween=null;
+            }
+            camTween=requestAnimationFrame(step);
+        }
+
+        function syncMobileMenuState(){
+            if(!isMobile()) return;
+            const anyOpen = document.getElementById('sidebar-right').classList.contains('open') ||
+                            document.getElementById('sidebar-left').classList.contains('open');
+            if(anyOpen && !mobileMenuOpen){
+                savedCamPos = camera.position.clone();
+                savedCamTarget = controls.target.clone();
+                mobileMenuOpen = true;
+                tweenCamera(MOBILE_VIEW_POS, MOBILE_VIEW_TARGET, 700);
+            } else if(!anyOpen && mobileMenuOpen){
+                mobileMenuOpen = false;
+                if(savedCamPos && savedCamTarget) tweenCamera(savedCamPos, savedCamTarget, 700);
+            }
+        }
 
         function init() {
             scene = new THREE.Scene();
@@ -861,7 +896,7 @@
             controls.enableDamping = true;
             controls.dampingFactor = 0.06;
             controls.minDistance = 6;
-            controls.maxDistance = 120;
+            controls.maxDistance = 160;
 
             scene.add(new THREE.AmbientLight(0xffffff, 0.45));
             const sunLight = new THREE.PointLight(0xffeecc, 3.5, 200);
@@ -886,11 +921,11 @@
             renderer.domElement.addEventListener('click', onClick);
             renderer.domElement.addEventListener('mousemove', onMove);
 
-            // 📱 موبایل: کلیک بیرون از منوها (روی صحنه) = بستن منوها
             document.getElementById('scene-container').addEventListener('click', () => {
-                if (matchMedia('(max-width: 900px)').matches) {
+                if (isMobile()) {
                     document.getElementById('sidebar-right').classList.remove('open');
                     document.getElementById('sidebar-left').classList.remove('open');
+                    syncMobileMenuState();
                 }
             });
 
@@ -1346,7 +1381,7 @@
                 ? { name: 'خورشید', desc: 'ستاره منظومه ما • ۹۹.۸٪ جرم کل منظومه' }
                 : CONFIG[id];
             const p = planets[id];
-            const temp = id === 'sun' ? '۵۵۰۰' : (p ? p.temp : cfg.baseTemp);
+            const temp = id === 'sun' ? '۵۵۰' : (p ? p.temp : cfg.baseTemp);
             const size = id === 'sun' ? sunScale.toFixed(2) : (p ? p.scale.toFixed(2) : '1.00');
 
             tip.innerHTML = `
@@ -1422,6 +1457,7 @@
             sb.classList.remove('collapsed');
             sb.classList.toggle('open');
             hideTip();
+            syncMobileMenuState();
         };
 
         window.setCameraView = function(view) {
