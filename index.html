@@ -708,17 +708,25 @@
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+        // 🌍 بافت‌های واقعی تمام سیارات (منبع: Solar System Scope از طریق jsDelivr با زنجیره جایگزین)
+        const SSS = 'https://cdn.jsdelivr.net/gh/jeromeetienne/threex.planets@master/images/';
+        const THREEJS = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/';
+
         const TEX = {
             earth: {
-                map: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg',
-                specular: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg',
-                normal: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg',
-                clouds: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png'
+                map: THREEJS + 'earth_atmos_2048.jpg',
+                specular: THREEJS + 'earth_specular_2048.jpg',
+                normal: THREEJS + 'earth_normal_2048.jpg',
+                clouds: THREEJS + 'earth_clouds_1024.png'
             },
-            mars: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/mars_1k.jpg',
-            jupiter: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/jupiter_1k.jpg',
-            saturn: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/saturn_1k.jpg',
-            moon: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/moon_1024.jpg'
+            moon:    [THREEJS + 'moon_1024.jpg'],
+            mercury: [SSS + 'mercurymap.jpg'],
+            venus:   [SSS + 'venusmap.jpg'],
+            mars:    [SSS + 'marsmap1k.jpg', THREEJS + 'mars_1k.jpg'],
+            jupiter: [SSS + 'jupitermap.jpg', THREEJS + 'jupiter_1k.jpg'],
+            saturn:  [SSS + 'saturnmap.jpg', THREEJS + 'saturn_1k.jpg'],
+            uranus:  [SSS + 'uranusmap.jpg'],
+            neptune: [SSS + 'neptunemap.jpg']
         };
 
         const CONFIG = {
@@ -730,10 +738,9 @@
             jupiter: { name: 'مشتری', color: '#D4A373', radius: 1.6, orbit: 15, speed: 0.084, baseTemp: -10, baseAtmo: 90, baseWater: 0, desc: 'غول گازی • محافظ زمین در برابر شهاب‌سنگ' },
             saturn:  { name: 'زحل', color: '#EAD6B8', radius: 1.4, orbit: 19.5, speed: 0.034, baseTemp: -20, baseAtmo: 80, baseWater: 0, desc: 'ارباب حلقه‌ها • چگالی کمتر از آب' },
             uranus:  { name: 'اورانوس', color: '#A8DADC', radius: 1.1, orbit: 23.5, speed: 0.012, baseTemp: -30, baseAtmo: 75, baseWater: 10, desc: 'سیاره یخی • به پهلو می‌چرخد' },
-            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰ کیلومتر بر ساعت' }
+            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰۰ کیلومتر بر ساعت' }
         };
 
-        // 🖼️ هر شرایط = زنجیره‌ای از چند منبع؛ اگر اولی لود نشد، بعدی امتحان می‌شود
         const IMAGES = {
             ice: [
                 'https://image.qwenlm.ai/public_source/69f58c00-66f9-4774-8c23-d33a20df623f/72b9a0da4-4361-4fde-85aa-a86d57ee30f67367.png',
@@ -786,10 +793,10 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰ ساله داره می‌چرخه! 🌀'],
-            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍‍'],
+            jupiter: ['۱۳۰۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
+            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍👩‍👧‍👦'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
-            neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰ کیلومتر بر ساعت! 💨']
+            neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
         };
 
         const SIZE_NOTES = {
@@ -822,7 +829,7 @@
                 down: ['fun',     'اورانوس کوچیک شده! دیگه حتی به پهلو هم جذاب نیست! 😴']
             },
             neptune: {
-                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
+                up:   ['warning', 'نپتون غول شده! بادهای ۲۰۰۰ کیلومتری‌ش از راه دور هم زمین رو تکون می‌ده! 💨'],
                 down: ['fun',     'نپتون آب رفته! بادهاش افتاده به سکوت مطلق! 🤫']
             }
         };
@@ -1016,11 +1023,15 @@
             }
         }
 
-        function loadTex(url) {
-            return new Promise(res => {
-                if (!url) return res(null);
-                loader.load(url, res, undefined, () => res(null));
-            });
+        // 🔗 پشتیبانی از زنجیره منابع: هرکدام لود نشد، بعدی امتحان می‌شود
+        async function loadTex(urls) {
+            if (!urls) return null;
+            if (typeof urls === 'string') urls = [urls];
+            for (const u of urls) {
+                const t = await new Promise(res => loader.load(u, res, undefined, () => res(null)));
+                if (t) return t;
+            }
+            return null;
         }
 
         async function buildPlanet(id, cfg) {
@@ -1058,17 +1069,31 @@
 
             } else {
                 let mat;
-                const texUrl = TEX[id];
-                const tex = texUrl ? await loadTex(texUrl) : null;
+                const tex = await loadTex(TEX[id]);
 
                 if (tex) {
-                    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.85 });
+                    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.85, metalness: 0.05 });
                 } else {
                     mat = new THREE.MeshStandardMaterial({ color: cfg.color, roughness: 0.85 });
                 }
 
                 mainMesh = new THREE.Mesh(new THREE.SphereGeometry(cfg.radius, 48, 48), mat);
-                group.add(mainMesh);
+
+                // 🌌 اورانوس: کج شدن محور به پهلو + حلقه‌های ظریف واقعی
+                if (id === 'uranus') {
+                    const tilt = new THREE.Group();
+                    tilt.rotation.z = 1.71;
+                    tilt.add(mainMesh);
+                    const uRing = new THREE.Mesh(
+                        new THREE.RingGeometry(cfg.radius * 1.5, cfg.radius * 2.0, 128),
+                        new THREE.MeshBasicMaterial({ color: 0x9fd8e6, side: THREE.DoubleSide, transparent: true, opacity: 0.22, depthWrite: false })
+                    );
+                    uRing.rotation.x = Math.PI / 2;
+                    tilt.add(uRing);
+                    group.add(tilt);
+                } else {
+                    group.add(mainMesh);
+                }
 
                 if (cfg.baseAtmo > 40) {
                     const atmoColor = id === 'venus' ? 0xE3BB76 : id === 'neptune' ? 0x4169E1 : id === 'uranus' ? 0x7FDBDA : id === 'mars' ? 0xCC6644 : 0xD4A373;
@@ -1357,7 +1382,6 @@
             ).join('');
         }
 
-        // 🖼️ تصویر جایگزین داخلی (بدون اینترنت) برای وقتی همه منابع شکست خوردند
         const IMG_EMO = { ice:'❄️', heat:'🔥', drought:'🏜️', flood:'🌊', rain:'🌧️', ocean:'🌊', normal:'🌍' };
         function placeholderURI(key){
             const emo = IMG_EMO[key] || '🌍';
