@@ -481,6 +481,13 @@
             .sidebar .habit-card,
             .sidebar .credit-footer { background: rgba(255,255,255,0.04); }
 
+            /* ✅ موبایل + تم روشن: پس‌زمینه منو تیره‌تر می‌شود تا متن سفید خوانا بماند */
+            body.light-space .sidebar {
+                background: rgba(12, 12, 20, 0.85);
+                backdrop-filter: blur(14px) saturate(160%);
+                -webkit-backdrop-filter: blur(14px) saturate(160%);
+            }
+
             .credit-footer { margin-top: 8px; }
 
             .loading-logo { width: 78px; height: 156px; }
@@ -717,7 +724,7 @@
             jupiter: { name: 'مشتری', color: '#D4A373', radius: 1.6, orbit: 15, speed: 0.084, baseTemp: -10, baseAtmo: 90, baseWater: 0, desc: 'غول گازی • محافظ زمین در برابر شهاب‌سنگ' },
             saturn:  { name: 'زحل', color: '#EAD6B8', radius: 1.4, orbit: 19.5, speed: 0.034, baseTemp: -20, baseAtmo: 80, baseWater: 0, desc: 'ارباب حلقه‌ها • چگالی کمتر از آب' },
             uranus:  { name: 'اورانوس', color: '#A8DADC', radius: 1.1, orbit: 23.5, speed: 0.012, baseTemp: -30, baseAtmo: 75, baseWater: 10, desc: 'سیاره یخی • به پهلو می‌چرخد' },
-            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰ کیلومتر بر ساعت' }
+            neptune: { name: 'نپتون', color: '#457B9D', radius: 1.0, orbit: 27, speed: 0.006, baseTemp: -40, baseAtmo: 70, baseWater: 15, desc: 'بادترین سیاره • ۲۰۰۰ کیلومتر بر ساعت' }
         };
 
         const IMAGES = {
@@ -747,8 +754,8 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
-            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨👩‍👧‍'],
+            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰ ساله داره می‌چرخه! 🌀'],
+            saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍👩‍'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
             neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
         };
@@ -1108,7 +1115,6 @@
             renderImage();
         }
 
-        // ================= محاسبه وضعیت زمین =================
         function calculateEarth() {
             const e = planets.earth;
             if (!e) return;
@@ -1117,13 +1123,11 @@
 
             temp += (sunScale - 1) * 45;
 
-            // اثر اندازه سیارات
             const S = (id) => (planets[id] ? planets[id].scale - 1 : 0);
             temp  += S('mercury') * 4 + S('venus') * 10 + S('mars') * 6 + S('jupiter') * 14 + S('saturn') * 8 + S('uranus') * 5 + S('neptune') * 4;
             water += S('moon') * 22 - S('jupiter') * 5 + S('neptune') * 3;
             atmo  += S('venus') * 8 + S('saturn') * 4 - S('mercury') * 3;
 
-            // 🧲 اثر سایر پارامترهای سیارات (دما/جو/آب/سرعت) بر زمین
             Object.entries(planets).forEach(([id, pl]) => {
                 if (id === 'earth' || !pl || !INFLUENCE[id]) return;
                 const cfg = pl.cfg;
@@ -1177,7 +1181,6 @@
             if (e.clouds) e.clouds.material.opacity = 0.35 + (water / 100) * 0.55;
         }
 
-        // ================= گزارش‌ها (منطقی و سازگار) =================
         function renderReports() {
             const p = planets[currentId];
             if (!p) return;
@@ -1210,12 +1213,10 @@
                 r => `<div class="rpt-item ${r[0]}"><span class="ic">${r[1]}</span><span>${r[2]}</span></div>`
             ).join('');
 
-            // ---------- گزارش زمین: رژیم‌بندی منطقی ----------
             const e = planets.earth;
             const E = [];
-            const frozen = e.effTemp <= -10;   // ❄️ رژیم یخبندان: آب مایع معنی نداره
+            const frozen = e.effTemp <= -10;
 
-            // دما
             if (e.effTemp > 45) {
                 E.push(['danger','🔥','زمین داره کباب می‌شه! یخ‌های قطبی آب شدن!']);
                 E.push(['fun','🐧','پنگوئن‌ها دارن کولر گازی می‌خرن!']);
@@ -1225,7 +1226,6 @@
 
             if (frozen) {
                 E.push(['danger','❄️','عصر یخبندان! پالتو و شالگردن یادت نره!']);
-                // آب در رژیم یخبندان: فقط حالت یخ‌زدگی، نه سیل و نه خشکسالیِ طلایی
                 if (e.effWater > 60) {
                     E.push(['warning','🧊','اقیانوس‌ها یخ زدن! کشتی‌ها لای یخ گیر کردن!']);
                     E.push(['fun','⛸️','کل اقیانوس شده پیست اسکیت!']);
@@ -1235,7 +1235,6 @@
                 }
             } else {
                 if (e.effTemp < 10) E.push(['warning','🥶','هوا سرد شده! بخاری‌ها روشن شدن!']);
-                // آب فقط در رژیم مایع: سیل یا خشکسالی (هرگز همزمان)
                 if (e.effWater > 80) {
                     E.push(['danger','🌊','سیل اومده! شهرهای ساحلی زیر آب رفتن!']);
                     E.push(['fun','🚣','به جای تاکسی، قایق سوار شو!']);
@@ -1247,15 +1246,12 @@
                 }
             }
 
-            // جو
             if (e.effAtmo > 85) E.push(['warning','🌫️','هوای غلیظ! حتی پرندگان ماسک زدن!']);
             if (e.effAtmo < 20) E.push(['danger','☢️','لایه ازن نابود شد! ضدآفتاب فراموش نشه!']);
 
-            // خورشید
             if (sunScale > 1.6) E.push(['warning','☀️','خورشید غول شد! همه دارن برنزه می‌شن!']);
             if (sunScale < 0.7) E.push(['warning','🌑','خورشید کوچیک شد! زمستون ابدی!']);
 
-            // 📈 نکات تغییر اندازه سیارات
             Object.entries(planets).forEach(([id, pl]) => {
                 if (id === 'earth' || !pl || !SIZE_NOTES[id]) return;
                 const d = pl.scale - 1;
@@ -1264,7 +1260,6 @@
                 E.push([n[0], d > 0 ? '📈' : '📉', n[1]]);
             });
 
-            // 🧲 نکات تغییر سایر پارامترها (متن همیشه هم‌جهت با اثر واقعیِ عددی)
             Object.entries(planets).forEach(([id, pl]) => {
                 if (id === 'earth' || !pl || !INFLUENCE[id]) return;
                 const cfg = pl.cfg;
@@ -1278,7 +1273,7 @@
                     const d = dev[param];
                     if (Math.abs(d) < PARAM_TH[param]) return;
                     const contrib = d * k;
-                    if (Math.abs(contrib) < 1.5) return;   // اثر ناچیز = بدون نکته
+                    if (Math.abs(contrib) < 1.5) return;
                     const idx = contrib > 0 ? 0 : 1;
                     const type = Math.abs(contrib) >= 6 ? 'warning' : 'neutral';
                     E.push([type, TARGET_EMO[target][idx],
@@ -1337,7 +1332,6 @@
             document.getElementById('tooltip').classList.remove('show');
         }
 
-        // 🏷️ نمایش تولتیپ برای یک سیاره در مختصات داده‌شده
         function showTipFor(id, x, y) {
             const tip = document.getElementById('tooltip');
             const cfg = id === 'sun'
@@ -1358,7 +1352,6 @@
             tip.style.top = Math.min(y + 16, innerHeight - 140) + 'px';
             tip.classList.add('show');
 
-            // 📱 در موبایل بعد از چند ثانیه خودکار مخفی می‌شود
             if (matchMedia('(pointer: coarse)').matches) {
                 clearTimeout(tipTimer);
                 tipTimer = setTimeout(() => tip.classList.remove('show'), 2500);
@@ -1396,7 +1389,6 @@
             if (id && id !== 'sun') {
                 selectPlanet(id);
             }
-            // 📱 در موبایل با ضربه روی سیاره، تولتیپ نمایش داده می‌شود
             if (id && matchMedia('(pointer: coarse)').matches) {
                 showTipFor(id, ev.clientX, ev.clientY);
             }
