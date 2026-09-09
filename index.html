@@ -473,6 +473,14 @@
                 -webkit-backdrop-filter: blur(10px) saturate(140%);
                 transform: translateY(105%);
             }
+
+            /* ✅ هر دو سایدپنل در موبایل تمام‌عرض شوند (غلبه بر right/left دسکتاپ) */
+            #sidebar-right,
+            #sidebar-left {
+                left: 0;
+                right: 0;
+            }
+
             #sidebar-right.open, #sidebar-left.open { transform: translateY(0); }
 
             .sidebar .sb-scroll { background: transparent; }
@@ -716,7 +724,7 @@
         };
 
         const CONFIG = {
-            mercury: { name: 'عطارد', color: '#A5A5A5', radius: 0.4, orbit: 4, speed: 4.15, baseTemp: 20, baseAtmo: 0, baseWater: 0, desc: 'نزدیک‌ترین سیاره به خورشید • سریع‌ترین' },
+            mercury: { name: 'عطارد', color: '#A5A5A5', radius: 0.4, orbit: 4, speed: 4.15, baseTemp: 90, baseAtmo: 0, baseWater: 0, desc: 'نزدیک‌ترین سیاره به خورشید • داغ‌ترین' },
             venus:   { name: 'زهره', color: '#E3BB76', radius: 0.7, orbit: 6, speed: 1.62, baseTemp: 60, baseAtmo: 90, baseWater: 0, desc: 'خواهر دوقلوی زمین • داغ‌ترین سیاره' },
             earth:   { name: 'زمین', color: '#22A6B3', radius: 0.75, orbit: 8.5, speed: 1.0, baseTemp: 25, baseAtmo: 70, baseWater: 70, desc: 'خانه ما • تنها سیاره حیات‌دار' },
             moon:    { name: 'ماه', color: '#C0C0C0', radius: 0.2, orbit: 1.6, speed: 13.0, baseTemp: 0, baseAtmo: 0, baseWater: 0, parent: 'earth', desc: 'همدم وفادار زمین' },
@@ -754,7 +762,7 @@
             earth: ['زمین تنها جاییه که پیتزا سفارش بدی! 🍕', 'زمین هر روز یک ثانیه کندتر می‌چرخه! 🐌'],
             moon: ['ماه سالی ۳.۸ سانت از ما دور می‌شه! 👋', 'روی ماه ۶ برابر بلندتر می‌پری! 🦘'],
             mars: ['مریخ بزرگترین کوه منظومه رو داره! 🏔️', 'اگر مریخ عطسه کنه، ۳ دقیقه طول می‌کشه برسه زمین! 🤧'],
-            jupiter: ['۱۳۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰ ساله داره می‌چرخه! 🌀'],
+            jupiter: ['۱۳۰۰ تا زمین توی مشتری جا می‌شن! 🏢', 'طوفان مشتری ۳۰۰ ساله داره می‌چرخه! 🌀'],
             saturn: ['زحل روی آب شناور می‌مونه! 🛁', 'زحل ۸۲ تا ماه داره! 👨‍👩‍'],
             uranus: ['اورانوس به پهلو خوابیده! 😴', 'اورانوس بوی تخم‌مرغ گندیده می‌ده! 🥚'],
             neptune: ['یک سال نپتون = ۱۶۵ سال زمین! ⏳', 'باد نپتون ۲۰۰۰ کیلومتر بر ساعت! 💨']
